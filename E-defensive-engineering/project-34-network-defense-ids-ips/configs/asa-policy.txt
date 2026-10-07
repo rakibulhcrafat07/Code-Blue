@@ -1,0 +1,13 @@
+! Simulated policy (Part B, Step 5)
+object network INSIDE-LAN
+ subnet 10.1.1.0 255.255.255.0
+ nat (inside,outside) dynamic interface
+!
+access-list OUTSIDE-IN extended deny ip any any log
+access-group OUTSIDE-IN in interface outside
+!
+policy-map global_policy
+ class inspection_default
+  inspect dns
+  inspect http
+  inspect icmp
