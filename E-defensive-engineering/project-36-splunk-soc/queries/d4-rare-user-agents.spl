@@ -1,0 +1,4 @@
+`comment("D4: Rare user agents")`
+index=main sourcetype=http_json
+| rare limit=20 http_user_agent
+| where count<=2

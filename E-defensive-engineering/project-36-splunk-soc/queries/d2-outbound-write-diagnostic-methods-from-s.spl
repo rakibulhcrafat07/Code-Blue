@@ -1,0 +1,5 @@
+`comment("D2: Outbound write/diagnostic methods from servers")`
+index=main sourcetype=http_json http_method IN ("PUT","PATCH","DELETE","TRACE","CONNECT","OPTIONS")
+| eval role=case(match(src_host,"^db-"),"database", match(src_host,"^(srv|web)-"),"server", match(src_host,"^email-"),"mail", true(),"workstation")
+| stats count values(http_method) as methods dc(dest_ip) as dests by role src_host
+| sort - count

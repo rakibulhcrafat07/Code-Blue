@@ -1,0 +1,4 @@
+`comment("D3: Hostname seen with multiple IPs")`
+index=main sourcetype=http_json
+| stats dc(src_ip) as ips values(src_ip) as ip_list by src_host
+| where ips>1

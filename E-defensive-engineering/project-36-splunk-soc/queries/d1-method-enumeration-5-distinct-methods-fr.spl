@@ -1,0 +1,6 @@
+`comment("D1: Method enumeration (≥5 distinct methods from one source to one destination within 1 hour)")`
+index=main sourcetype=http_json
+| bin _time span=1h
+| stats dc(http_method) as methods values(http_method) as list count by _time src_ip src_host dest_ip
+| where methods>=5
+| sort - methods

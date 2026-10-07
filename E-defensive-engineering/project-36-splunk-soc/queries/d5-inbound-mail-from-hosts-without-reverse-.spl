@@ -1,0 +1,4 @@
+`comment("D5: Inbound mail from hosts without reverse DNS")`
+index=main sourcetype=postfix_syslog "client=unknown["
+| rex "client=unknown\[(?<sender_ip>[\d\.]+)\]"
+| stats count by sender_ip

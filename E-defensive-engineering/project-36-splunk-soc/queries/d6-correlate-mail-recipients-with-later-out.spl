@@ -1,0 +1,6 @@
+`comment("D6: Correlate mail recipients with later outbound web activity")`
+index=main sourcetype=postfix_syslog "postfix/local" status=sent
+| rex "to=<(?<rcpt>[^>]+)>"
+| join type=left rcpt [ | inputlookup user_to_host.csv ]
+| join type=inner src_host [ search index=main sourcetype=http_json earliest=-24h ]
+| table _time rcpt src_host http_method dest_ip
