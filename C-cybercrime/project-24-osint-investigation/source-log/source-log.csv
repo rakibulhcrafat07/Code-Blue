@@ -1,0 +1,11 @@
+finding_id,finding,tool,source,archive_link,confidence,notes
+F01,elonmusk resolves to verified X account,WhatsMyName + manual,x.com/elonmusk,web.archive.org/web/*/x.com/elonmusk,High,verified badge + manual check
+F02,SpaceX official X account,manual,x.com/SpaceX,web.archive.org/web/*/x.com/SpaceX,High,company account
+F03,Starlink official X account,manual,x.com/Starlink,web.archive.org/web/*/x.com/Starlink,High,company account
+F04,Same-name Instagram exists but unverified,WhatsMyName,platform result,-,Medium,existence not authenticity
+F05,LinkedIn same-name page is an impostor,manual,LinkedIn page (PT-language investment ad),-,High,confirmed by reading page
+F06,No other accounts (first-draft claim),-,-,-,Unsupported,cannot prove a negative from username tool
+F07,spacex.com registered to Space Exploration Technologies Corp,WHOIS,whois.com/whois/spacex.com,-,High,registrant org = company
+F08,starlink.com registrant privacy-masked (Domains By Proxy),WHOIS,whois.com/whois/starlink.com,-,High,proxy is not the owner
+F09,SpaceX site history 2023-2024,Wayback,web.archive.org/web/20230506171858/https://www.spacex.com/,same,High,legitimacy signal
+F10,Starlink site history 2023-2024,Wayback,web.archive.org/web/20230427025847/https://www.starlink.com/,same,High,legitimacy signal
