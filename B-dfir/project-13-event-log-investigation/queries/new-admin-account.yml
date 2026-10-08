@@ -1,0 +1,8 @@
+title: New Account Added to Administrators
+status: experimental
+logsource: {product: windows, service: security}
+detection:
+  create: {EventID: 4720}
+  addadmin: {EventID: 4732, TargetUserName: 'Administrators'}
+  condition: create and addadmin
+level: high

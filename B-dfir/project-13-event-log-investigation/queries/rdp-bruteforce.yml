@@ -1,0 +1,10 @@
+title: RDP Brute Force Followed by Success
+status: experimental
+logsource: {product: windows, service: security}
+detection:
+  failures:
+    EventID: 4625
+    LogonType: 10
+  timeframe: 5m
+  condition: failures | count() by IpAddress > 10
+level: high

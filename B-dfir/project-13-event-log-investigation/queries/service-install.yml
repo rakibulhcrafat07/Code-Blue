@@ -1,0 +1,9 @@
+title: Suspicious Service Installed
+status: experimental
+logsource: {product: windows, service: system}
+detection:
+  sel: {EventID: 7045}
+  susp:
+    ImagePath|contains: ['\Temp\', '\Users\Public\', '.ps1', 'powershell']
+  condition: sel and susp
+level: high
