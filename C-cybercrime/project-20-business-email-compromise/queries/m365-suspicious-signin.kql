@@ -1,0 +1,17 @@
+// Suspicious sign-in (legacy auth or new ASN) followed by a mailbox-rule change
+// by the same user within 1 hour — the BEC takeover signature.
+let ruleChanges =
+    OfficeActivity
+    | where Operation in ("New-InboxRule","Set-InboxRule","Set-Mailbox")
+    | project ruleTime = TimeGenerated, User = tolower(UserId), Operation, ClientIP;
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where ResultType == 0                              // successful
+| where ClientAppUsed in ("IMAP4","POP3","SMTP","Other clients")   // legacy auth
+      or RiskLevelDuringSignIn in ("medium","high")
+| extend User = tolower(UserPrincipalName)
+| project signinTime = TimeGenerated, User, IPAddress, Location, ClientAppUsed
+| join kind=inner ruleChanges on User
+| where ruleTime between (signinTime .. (signinTime + 1h))
+| project signinTime, ruleTime, User, IPAddress, Location, ClientAppUsed, Operation
+| sort by signinTime asc

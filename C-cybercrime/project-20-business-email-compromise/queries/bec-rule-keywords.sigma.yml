@@ -1,0 +1,45 @@
+title: BEC Inbox Rule Hiding Finance Mail
+id: cb20-bec-rule-keywords
+status: experimental
+description: >
+  Creation or modification of an inbox rule that keys on invoice/payment/bank
+  keywords and moves matching mail to RSS/Archive/Deleted or forwards it out —
+  the classic Business Email Compromise concealment rule.
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection_op:
+    Operation:
+      - 'New-InboxRule'
+      - 'Set-InboxRule'
+  selection_keywords:
+    Parameters|contains:
+      - 'invoice'
+      - 'payment'
+      - 'bank'
+      - 'wire'
+      - 'remittance'
+      - 'ACH'
+  selection_hide:
+    Parameters|contains:
+      - 'RSS Feeds'
+      - 'Archive'
+      - 'Deleted Items'
+      - 'MarkAsRead'
+      - 'DeleteMessage'
+      - 'ForwardTo'
+      - 'RedirectTo'
+  condition: selection_op and selection_keywords and selection_hide
+fields:
+  - UserId
+  - ClientIP
+  - Parameters
+falsepositives:
+  - A user genuinely filing invoice mail into a folder (confirm the target + forwarding)
+level: high
+tags:
+  - attack.collection
+  - attack.t1114.003
+  - attack.defense_evasion
+  - attack.t1564.008

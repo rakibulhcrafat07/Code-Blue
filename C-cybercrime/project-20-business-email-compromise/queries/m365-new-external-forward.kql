@@ -1,0 +1,14 @@
+// New external forwarding / redirect rule in Microsoft 365
+// Source: OfficeActivity (Unified Audit Log) in Sentinel
+OfficeActivity
+| where TimeGenerated > ago(30d)
+| where Operation in ("New-InboxRule", "Set-InboxRule", "Set-Mailbox")
+| extend params = parse_json(Parameters)
+| mv-expand params
+| extend pName = tostring(params.Name), pValue = tostring(params.Value)
+| where pName in ("ForwardTo","RedirectTo","ForwardingSmtpAddress","ForwardAsAttachmentTo")
+| extend ExternalTarget = pValue
+// keep only targets outside your own domain(s)
+| where ExternalTarget !contains "@northwind-traders.example"
+| project TimeGenerated, UserId, Operation, pName, ExternalTarget, ClientIP, OriginatingServer
+| sort by TimeGenerated asc
