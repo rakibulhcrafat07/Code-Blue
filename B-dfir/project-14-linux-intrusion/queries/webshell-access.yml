@@ -1,0 +1,32 @@
+title: Web Shell Access via Uploaded PHP
+id: cb14-webshell-access
+status: experimental
+description: Requests to a PHP file in an uploads/writable directory with a command parameter or a non-browser user-agent, indicating web-shell use.
+logsource:
+  category: webserver
+detection:
+  selection_path:
+    c-uri|contains:
+      - '/uploads/'
+      - '/files/'
+      - '/tmp/'
+    c-uri|endswith: '.php'
+  selection_signal:
+    - c-uri|re: '[?&](cmd|c|exec|cmd1|pass)='
+    - c-useragent|contains:
+        - 'curl/'
+        - 'python-requests'
+        - 'Wget'
+  condition: selection_path and selection_signal
+fields:
+  - c-ip
+  - c-uri
+  - c-useragent
+  - sc-status
+falsepositives:
+  - Legitimate automation that posts to an uploads path (rare; confirm the endpoint)
+level: high
+tags:
+  - attack.persistence
+  - attack.t1505.003
+  - attack.t1190

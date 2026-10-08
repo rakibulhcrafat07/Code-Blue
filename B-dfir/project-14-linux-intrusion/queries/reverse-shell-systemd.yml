@@ -1,0 +1,38 @@
+title: Reverse-Shell Persistence via Systemd / Cron
+id: cb14-reverse-shell-persistence
+status: experimental
+description: Creation or modification of a systemd unit, cron file, or rc file whose content contains a reverse-shell or payload-fetch one-liner.
+logsource:
+  product: linux
+  service: auditd
+detection:
+  selection_file:
+    name|startswith:
+      - '/etc/systemd/system/'
+      - '/lib/systemd/system/'
+      - '/etc/cron.d/'
+      - '/etc/rc.local'
+      - '/var/spool/cron/'
+  selection_payload:
+    content|contains:
+      - '/dev/tcp/'
+      - 'bash -i'
+      - 'nc -e'
+      - 'ncat '
+      - 'curl '
+      - 'wget '
+      - 'python -c'
+  condition: selection_file and selection_payload
+fields:
+  - name
+  - exe
+  - uid
+falsepositives:
+  - Legitimate admin units that fetch resources (whitelist specific known units)
+level: critical
+tags:
+  - attack.persistence
+  - attack.t1543.002
+  - attack.t1053.003
+  - attack.command_and_control
+  - attack.t1571

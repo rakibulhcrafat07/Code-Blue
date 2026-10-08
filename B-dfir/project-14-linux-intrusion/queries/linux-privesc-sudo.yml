@@ -1,0 +1,29 @@
+title: Service Account Invoking Sudo
+id: cb14-privesc-sudo
+status: experimental
+description: A web/service account (www-data, apache, nginx) running sudo. These accounts should never escalate; a single hit is a strong privilege-escalation signal.
+logsource:
+  product: linux
+  service: auth
+detection:
+  selection:
+    - '|all':
+        - 'sudo:'
+        - ' www-data '
+    - '|all':
+        - 'sudo:'
+        - ' apache '
+    - '|all':
+        - 'sudo:'
+        - ' nginx '
+  condition: selection
+fields:
+  - USER
+  - COMMAND
+  - TTY
+falsepositives:
+  - A deliberate, documented maintenance script running as the service account
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.003
