@@ -1,0 +1,11 @@
+id,category,finding,tool,severity,attack_enabled,remediation,status
+AD-01,Privileged accounts,SPN set on a Domain Admin service account (SVC-SQL),PingCastle+PK,Critical,Kerberoasting (T1558.003),Move to gMSA; reset; remove SPN from user,Fixed
+AD-02,Kerberos,Account KRB-OLD has 'do not require preauth',Purple Knight,High,AS-REP roasting (T1558.004),Re-enable preauth; reset password,Fixed
+AD-03,ACL,HelpDesk group has GenericAll over SVC-SQL,BloodHound,High,Shortest path to DA,Remove ACL; least privilege,Fixed
+AD-04,Replication,User j.smith holds Replicating Directory Changes rights,PingCastle,Critical,DCSync (T1003.006),Remove replication ACL from non-DCs,Fixed
+AD-05,Delegation,SRV-APP01 has unconstrained delegation,Purple Knight,Critical,Delegation abuse / TGT theft,Switch to constrained/RBCD; mark DAs sensitive,Fixed
+AD-06,Privileged accounts,14 members in Domain Admins (incl. 3 stale),PingCastle,High,Large blast radius,Trim to 3; tiered admin; stale cleanup,Fixed
+AD-07,Kerberos encryption,RC4 permitted domain-wide,PingCastle,Medium,RC4 Kerberoasting,Enforce AES; disable RC4,In progress
+AD-08,Passwords,No fine-grained lockout; weak legacy passwords,Purple Knight,High,Password spraying (T1110.003),FGPP + lockout; banned-password list,Fixed
+AD-09,Local admins,Shared identical local-admin password on workstations,PingCastle,High,Lateral movement (T1078.003),Deploy LAPS,Fixed
+AD-10,Stale objects,Many inactive users/computers still enabled,PingCastle,Medium,Attack surface,Disable + remove on schedule,In progress

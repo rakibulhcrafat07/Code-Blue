@@ -1,0 +1,23 @@
+title: Kerberoasting - RC4 Service Ticket for a User SPN
+id: cb33-kerberoast-4769
+status: experimental
+description: Kerberos service-ticket (TGS) requests with RC4 encryption for a non-machine service account - the Kerberoasting signature.
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+    TicketEncryptionType: '0x17'   # RC4-HMAC
+  filter_machine:
+    ServiceName|endswith: '$'       # exclude computer accounts
+  filter_krbtgt:
+    ServiceName: 'krbtgt'
+  filter_status:
+    TicketOptions: '0x40810000'     # typical; tune per environment
+  condition: selection and not filter_machine and not filter_krbtgt
+fields: [TargetUserName, ServiceName, IpAddress, TicketEncryptionType]
+falsepositives:
+  - Legacy apps that genuinely still negotiate RC4 (fix by enforcing AES)
+level: high
+tags: [attack.credential_access, attack.t1558.003]

@@ -1,0 +1,23 @@
+title: DCSync - Directory Replication from a Non-DC
+id: cb33-dcsync-4662
+status: experimental
+description: >
+  Access to the DS-Replication-Get-Changes control-access rights by an account that is
+  not a Domain Controller - the DCSync signature (domain-wide hash theft).
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4662
+    Properties|contains:
+      - '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2'   # DS-Replication-Get-Changes
+      - '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2'   # DS-Replication-Get-Changes-All
+  filter_dc_accounts:
+    SubjectUserName|endswith: '$'                # exclude machine/DC accounts you trust
+  condition: selection and not filter_dc_accounts
+fields: [SubjectUserName, ObjectName, Properties]
+falsepositives:
+  - Azure AD Connect / legitimate replication service accounts (allowlist explicitly)
+level: critical
+tags: [attack.credential_access, attack.t1003.006]

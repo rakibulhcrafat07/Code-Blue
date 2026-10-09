@@ -1,0 +1,19 @@
+title: AS-REP Roasting - Preauth-Disabled Account
+id: cb33-asrep-4768
+status: experimental
+description: Kerberos AS-REQ/AS-REP for an account that does not require pre-authentication, enabling offline cracking of the AS-REP.
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4768
+    PreAuthType: '0'               # pre-authentication NOT required
+  filter_rc4:
+    TicketEncryptionType: '0x17'   # RC4 reply is the crackable case
+  condition: selection and filter_rc4
+fields: [TargetUserName, IpAddress, PreAuthType, TicketEncryptionType]
+falsepositives:
+  - Rare legitimate accounts with preauth disabled (remediate instead of allowlisting)
+level: high
+tags: [attack.credential_access, attack.t1558.004]
