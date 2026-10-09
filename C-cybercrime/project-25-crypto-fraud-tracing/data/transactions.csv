@@ -1,0 +1,15 @@
+hop,txid,from,to,asset,amount,dest_type,utc,note
+0,0xAAA...v1,victim wallets (x38),0xSCAM...A11,ETH,142.6,scam_wallet,2025-09-02..2025-09-30,38 inbound = ~38 victims
+1,0xBBB...sw,0xSCAM...A11,0xPEEL...77,ETH,140.0,peel,2025-10-01T02:10Z,single sweep out
+2,0xCCC...p1,0xPEEL...77,0xF1...a,ETH,23.3,peel,2025-10-01T02:40Z,split 1/6
+2,0xCCC...p2,0xPEEL...77,0xF2...b,ETH,23.3,peel,2025-10-01T02:41Z,split 2/6
+2,0xCCC...p3,0xPEEL...77,0xF3...c,ETH,23.3,peel,2025-10-01T02:41Z,split 3/6
+2,0xCCC...p4,0xPEEL...77,0xF4...d,ETH,23.3,peel,2025-10-01T02:42Z,split 4/6
+2,0xCCC...p5,0xPEEL...77,0xF5...e,ETH,23.3,peel,2025-10-01T02:42Z,split 5/6
+2,0xCCC...p6,0xPEEL...77,0xF6...f,ETH,23.3,peel,2025-10-01T02:43Z,split 6/6
+3,0xDDD...m1,0xF1...a,0xMIX...TC,ETH,23.0,mixer,2025-10-01T05:00Z,into sanctioned mixer
+3,0xDDD...m2,0xF2...b,0xMIX...TC,ETH,22.8,mixer,2025-10-01T05:02Z,into sanctioned mixer
+3,0xDDD...m3,0xF3...c,0xMIX...TC,ETH,22.6,mixer,2025-10-01T05:05Z,into sanctioned mixer
+3,0xDDD...m4,0xF4...d,0xMIX...TC,ETH,21.9,mixer,2025-10-01T05:07Z,into sanctioned mixer
+3,0xDDD...x1,0xF5...e,0xEXCH...DEP,ETH,23.0,exchange_deposit,2025-10-01T06:12Z,ACTIONABLE - KYC at exchange
+3,0xDDD...x2,0xF6...f,0xEXCH...DEP,ETH,23.0,exchange_deposit,2025-10-01T06:14Z,ACTIONABLE - KYC at exchange
