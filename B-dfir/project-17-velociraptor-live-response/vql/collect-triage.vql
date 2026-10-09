@@ -1,0 +1,7 @@
+// Targeted collection from a positive host only (run per client_id).
+// Full SANS triage pack (KAPE-equivalent)
+SELECT * FROM Artifact.Windows.KapeFiles.Targets(Device="C:", _SANS_Triage=TRUE)
+
+// Grab the specific malicious binary and hash it
+SELECT * FROM Artifact.Generic.Collectors.File(path="C:/ProgramData/netsvc.exe")
+SELECT FullPath, Hash.SHA256 AS SHA256 FROM hash(path="C:/ProgramData/netsvc.exe")

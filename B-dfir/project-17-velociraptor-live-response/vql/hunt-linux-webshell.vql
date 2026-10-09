@@ -1,0 +1,14 @@
+// Fleet hunt: Linux web shell + reverse-shell persistence (IOCs from P14).
+// 1) PHP files in web-writable dirs (web shell)
+SELECT FullPath, Mtime, Size
+FROM glob(globs="/var/www/**/*.php")
+WHERE FullPath =~ "uploads|img_9931"
+
+// 2) systemd units / scripts with a reverse-shell one-liner
+SELECT FullPath, Data
+FROM Artifact.Linux.Sys.Services()
+WHERE Data =~ "/dev/tcp/|bash -i|nc -e"
+
+// 3) cron entries that fetch/execute
+SELECT * FROM Artifact.Linux.Sys.Crontab()
+WHERE Line =~ "curl|wget|bash"

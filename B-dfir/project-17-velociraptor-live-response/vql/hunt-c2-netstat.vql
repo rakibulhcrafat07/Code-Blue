@@ -1,0 +1,10 @@
+// Fleet hunt: any endpoint with a live connection to the C2 IP.
+// Deploy via Hunt Manager against all clients (Windows + Linux).
+SELECT Pid, Name, Family, Status,
+       Laddr.IP AS LocalIP, Raddr.IP AS RemoteIP, Raddr.Port AS RemotePort
+FROM netstat()
+WHERE RemoteIP = "194.61.24.102"
+
+// Historical trace (Windows DNS client cache)
+SELECT * FROM Artifact.Windows.System.DNSCache()
+WHERE Name =~ "194.61.24.102"

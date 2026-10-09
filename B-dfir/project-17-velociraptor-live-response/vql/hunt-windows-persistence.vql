@@ -1,0 +1,17 @@
+// Fleet hunt: Windows persistence + suspicious processes.
+// 1) Services running from Temp / random-named exe / powershell
+SELECT Name, PathName, StartMode, ServiceType
+FROM Artifact.Windows.System.Services()
+WHERE PathName =~ "(?i)\\\\Temp\\\\|powershell|\\\\ProgramData\\\\|[a-z]{8}\\.exe"
+
+// 2) Scheduled tasks
+SELECT * FROM Artifact.Windows.System.TaskScheduler()
+
+// 3) WMI event-consumer persistence
+SELECT * FROM Artifact.Windows.Persistence.PermanentWMIEvents()
+
+// 4) Suspicious live processes (temp path or encoded command line)
+SELECT Pid, Ppid, Name, Exe, CommandLine, Username
+FROM Artifact.Windows.System.Pslist()
+WHERE Exe =~ "(?i)\\\\(Temp|ProgramData|Users\\\\Public)\\\\"
+   OR CommandLine =~ "(?i)-enc |FromBase64|/dev/tcp/"
