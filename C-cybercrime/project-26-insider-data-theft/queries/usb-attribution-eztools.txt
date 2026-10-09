@@ -1,0 +1,28 @@
+# USB device attribution — EZ Tools workflow (run on the SUSPECT'S ENDPOINT image)
+# Goal: tie a seized USB (by serial) to a user, a drive letter, and files opened.
+
+# 1) USB device history (vendor / product / SERIAL / first-last connect)
+RECmd.exe -d <mount>\Windows\System32\config\SYSTEM --bn BatchExamples\USBStor.reb --csv out
+# also review: SYSTEM\CurrentControlSet\Enum\USBSTOR  and  USB
+# and setupapi.dev.log for first-insert timestamps:
+#   <mount>\Windows\INF\setupapi.dev.log
+
+# 2) Map device -> drive letter / volume
+#   SYSTEM\MountedDevices
+#   NTUSER.DAT\Software\Microsoft\Windows\CurrentVersion\Explorer\MountPoints2   (per user)
+
+# 3) ShellBags — which folders on the device were browsed
+SBECmd.exe -d <mount>\Users\<user> --csv out
+
+# 4) LNK + Jump Lists — which files were opened, with target paths + timestamps
+LECmd.exe  -d <mount>\Users\<user>\AppData\Roaming\Microsoft\Windows\Recent --csv out
+JLECmd.exe -d <mount>\Users\<user>\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations --csv out
+
+# 5) Deleted-trace recovery
+#   $Recycle.Bin (RBCmd.exe), plus carving for files removed to hide activity
+RBCmd.exe -d <mount>\$Recycle.Bin --csv out
+
+# The chain:
+#   USBSTOR serial X  ==  seized drive
+#   MountedDevices maps X -> E:  under user jdoe's hive
+#   LNK/ShellBags: jdoe opened E:\...\<files> at a time matching the drive's Created stamps
