@@ -1,0 +1,7 @@
+scenario,detection_to_action_sec,action,mode,outcome
+Known-malware execution,4.2,kill + quarantine,AUTO,process dead before payload staged
+Ransomware simulator,6.8,host isolation,AUTO,spread stopped at 1 host
+C2 beacon to known-bad IP,3.1,firewall block,AUTO,beacon severed
+SSH brute force,2.5,timed IP block,AUTO,source blocked for 30 min
+Off-hours admin creation,5.0,disable account + page,AUTO+page,account frozen; analyst confirmed in 11 min
+Manual baseline (analyst paged, logs in),420,host isolation,MANUAL,7 min - during which ransomware would have spread

@@ -1,0 +1,9 @@
+detection,confidence,action,mode,rollback,rationale
+Known-malware hash (VT/EDR verified),Very high,Kill process + quarantine file,AUTO,restore from quarantine,Unambiguous; speed matters at 3 AM
+Ransomware behaviour (mass rename + vssadmin delete),Very high,Isolate host (network),AUTO,remove firewall rule,Minutes of delay = hundreds of files; isolate preserves memory
+Known-bad C2 IP (threat-intel match),High,Block IP at host firewall,AUTO,unblock IP,Low FP; reversible
+Brute-force / password spray (threshold),High,Block source IP (temporary),AUTO (timed),auto-expires,Temporary block self-heals; low blast radius
+New local admin created off-hours,Medium,Disable account + alert,AUTO + page,re-enable account,Reversible; page a human to confirm
+Suspicious PowerShell (encoded) single host,Medium,Alert + collect triage,MANUAL,n/a,Too many FPs to auto-kill; enrich first
+Lateral movement indicators,Medium,Isolate host,MANUAL (one-click),remove rule,High impact; human confirms scope
+Anomalous login from new country,Low,Alert only,MANUAL,n/a,Often legitimate travel/VPN
