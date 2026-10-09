@@ -1,0 +1,12 @@
+utc,phase,event,source
+2026-02-10T02:14:02Z,initial-access,Interactive logon as lab\jdoe from 203.0.113.55 (4624),DC/auth
+2026-02-10T02:16:30Z,discovery,net view / net group Domain Admins on WS-03,Sysmon
+2026-02-10T02:25:00Z,lateral,Service install (7045) on FILESRV-01 via PsExec,System log
+2026-02-10T02:30:00Z,lateral,4648 explicit-cred logon WS-03 -> WS-01/WS-02,Security
+2026-02-10T02:41:50Z,impact,vssadmin delete shadows /all /quiet,Sysmon
+2026-02-10T02:42:10Z,impact,>200 files modified by simulator in 40s,Sysmon EID11
+2026-02-10T02:42:55Z,impact,Ransom note *_RECOVER_FILES.txt dropped,Sysmon EID11
+2026-02-10T02:43:30Z,response,SEV-1 declared,SOC
+2026-02-10T02:46:00Z,containment,First host isolated,Velociraptor
+2026-02-10T05:30:00Z,recovery,Finance shares restored from offline backup,IT
+2026-02-10T08:00:00Z,recovery,Hashes verified; detections quiet,DFIR

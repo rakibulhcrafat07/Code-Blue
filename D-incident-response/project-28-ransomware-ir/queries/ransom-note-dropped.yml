@@ -1,0 +1,20 @@
+title: Ransom Note Dropped Across Directories
+id: cb28-ransom-note
+status: experimental
+description: Creation of identically-named note files across many directories (e.g. _RECOVER_FILES.txt, HOW_TO_DECRYPT.html).
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    EventID: 11
+    TargetFilename|contains:
+      - '_RECOVER'
+      - 'HOW_TO_DECRYPT'
+      - '_README'
+      - 'DECRYPT_INSTRUCTION'
+    TargetFilename|endswith: ['.txt','.html','.hta']
+  timeframe: 2m
+  condition: selection | count(TargetFilename) by Image > 10
+level: high
+tags: [attack.impact, attack.t1486]

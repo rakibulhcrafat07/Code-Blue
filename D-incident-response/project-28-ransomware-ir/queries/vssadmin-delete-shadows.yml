@@ -1,0 +1,21 @@
+title: Shadow Copy Deletion (Ransomware Recovery Inhibition)
+id: cb28-vssadmin-delete
+status: experimental
+description: Deletion of Volume Shadow Copies — a near-universal ransomware precursor so victims cannot roll back.
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_vss:
+    Image|endswith: ['\vssadmin.exe','\wmic.exe','\powershell.exe','\diskshadow.exe']
+    CommandLine|contains|all: ['shadow']
+    CommandLine|contains: ['delete','resize']
+  selection_bcedit:
+    Image|endswith: '\bcdedit.exe'
+    CommandLine|contains: ['recoveryenabled no','bootstatuspolicy ignoreallfailures']
+  selection_wbadmin:
+    Image|endswith: '\wbadmin.exe'
+    CommandLine|contains: ['delete','catalog']
+  condition: selection_vss or selection_bcedit or selection_wbadmin
+level: high
+tags: [attack.impact, attack.t1490]

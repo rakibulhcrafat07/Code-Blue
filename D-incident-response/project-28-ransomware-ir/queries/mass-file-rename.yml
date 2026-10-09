@@ -1,0 +1,17 @@
+title: Mass File Modification by Single Process (Encryption)
+id: cb28-mass-file-rename
+status: experimental
+description: One process creating/renaming a large number of files in a short window — the signature of active encryption. Best implemented as a SIEM threshold/correlation rule over Sysmon EID 11.
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    EventID: 11
+  timeframe: 1m
+  condition: selection | count(TargetFilename) by Image > 200
+fields: [Image, ProcessId, TargetFilename]
+falsepositives:
+  - Backup/AV/indexing software (whitelist by signed Image path)
+level: high
+tags: [attack.impact, attack.t1486]

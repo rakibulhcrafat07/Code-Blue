@@ -1,0 +1,10 @@
+utc,action,target,operator,result
+2026-02-10T02:43:30Z,Declare SEV-1 + assign IC,incident,tier1-analyst,IC assigned
+2026-02-10T02:46:00Z,Network-isolate host (Velociraptor Quarantine),WS-03,dfir-analyst,isolated
+2026-02-10T02:47:10Z,Network-isolate host,FILESRV-01,dfir-analyst,isolated
+2026-02-10T02:49:40Z,Network-isolate hosts,WS-01;WS-02,dfir-analyst,isolated
+2026-02-10T02:52:00Z,Disable compromised account (not delete),lab\jdoe,ic,disabled
+2026-02-10T02:55:00Z,Block initial-access IP at firewall,203.0.113.55,infra,blocked
+2026-02-10T02:58:00Z,Disable external RDP exposure,perimeter,infra,closed
+2026-02-10T03:05:00Z,Fleet hunt for vssadmin/mass-rename IOCs,all hosts,dfir-analyst,no further hosts
+2026-02-10T03:20:00Z,Preserve memory + triage from isolated hosts,WS-03;FILESRV-01,dfir-analyst,collected+hashed
