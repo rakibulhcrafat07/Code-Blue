@@ -1,0 +1,9 @@
+attack,payload_example,crs_rule_family,pl1_result,pl2_result,anomaly_score,reason
+SQL injection,' OR '1'='1,942xxx,blocked,blocked,5+,libinjection recognises SQL syntax
+XSS reflected,<script>alert(1)</script>,941xxx,blocked,blocked,5+,libinjection XSS tokenizer
+Command injection,;cat /etc/passwd,932xxx,blocked,blocked,5+,Unix shell-code pattern
+Path traversal,../../../../etc/passwd,930xxx,blocked,blocked,5+,/../ traversal signature
+Obfuscated SQLi,'/**/OR/**/1=1-- -,942xxx,bypassed,blocked,3->5,comment/case evasion; needs PL2
+Encoded XSS,%3Cscript%3E double-encoded,941xxx,bypassed,blocked,3->5,needs PL2 + URL-decode transforms
+App business-logic abuse,valid params wrong workflow,none,bypassed,bypassed,0,WAF cannot see business logic - fix the app
+Slow credential stuffing,valid creds many users,none,bypassed,bypassed,0,not a payload attack - needs rate-limit/auth controls

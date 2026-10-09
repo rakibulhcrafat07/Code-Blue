@@ -1,0 +1,7 @@
+panel,query_basis,what_it_shows,why
+Blocks per source IP,count by src_ip where blocked,who is attacking,find scanners/attackers to block upstream
+Top rule IDs firing,count by rule_id,what attacks are attempted,understand threat + spot noisy rules to tune
+Anomaly score distribution,histogram of tx.anomaly_score,how close requests are to threshold,tune the threshold safely
+DetectionOnly vs Blocked over time,count by action over time,rollout progress + attack trend,prove the WAF is working
+Attack class breakdown,count by tag (sqli/xss/rce/lfi),which OWASP categories hit most,prioritise app fixes
+Top targeted URIs,count by uri where matched,which endpoints are attacked,focus hardening + patching

@@ -1,0 +1,7 @@
+date,change,scope,reason,risk_tradeoff
+2026-03-01,SecRuleEngine DetectionOnly,global,Initial deploy - observe before blocking,none (log only)
+2026-03-03,ctl:ruleRemoveTargetById=942100 ARGS:q on /app/search,one param/one URI,Search box legitimately contains quotes flagged as SQLi,surgical - only that param on that URI
+2026-03-04,ctl:ruleRemoveById=920350 on /api/upload,one URI,Host header rule false-positive on internal upload path,narrow
+2026-03-06,paranoia_level 1 -> 2,global,PL1 missed obfuscated SQLi in testing,more FPs - re-tuned after
+2026-03-07,inbound threshold kept at 5,global,Score 5 balanced detection vs FP in our traffic,standard
+2026-03-08,SecRuleEngine On,global,DetectionOnly quiet on legit traffic for 48h,now blocking
