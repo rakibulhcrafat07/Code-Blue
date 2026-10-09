@@ -1,0 +1,29 @@
+id,category,control,cis_mapping,legacy_or_default_risk,status,notes
+H-01,Windows,Set minimum password length (>=14),CIS 1.1.4,weak creds,Applied,via GPO
+H-02,Windows,Enable password complexity,CIS 1.1.5,weak creds,Applied,via GPO
+H-03,Windows,Do not store passwords with reversible encryption,CIS 1.1.6,cleartext creds,Applied,default-on verified
+H-04,Windows,Configure account lockout policy,CIS 1.2.x,brute force,Applied,10 attempts/15 min
+H-05,Windows,Disable SMBv1 client and server,CIS 18.x,T1210 legacy proto,Applied,WannaCry-class risk removed
+H-06,Windows,Disable LLMNR,CIS 18.x,T1557.001 poisoning,Applied,GPO Turn Off Multicast Name Resolution
+H-07,Windows,Disable NBT-NS (NetBIOS over TCP/IP),CIS 18.x,T1557.001 poisoning,Applied,per-adapter + DHCP option
+H-08,Windows,Disable NTLMv1 / refuse LM & NTLM,CIS 2.3.11.x,downgrade/relay,Applied,LmCompatibilityLevel=5
+H-09,Windows,Enable warning logon banner,CIS 2.3.7.x,legal/notice,Applied,Message Text set
+H-10,Windows,Disable guest account,CIS 2.3.1.x,anon access,Applied,default verified
+H-11,Windows,Restrict 'access this computer from network' to Admins,CIS 2.2.x,lateral movement,Applied,
+H-12,Windows,Enable Windows Firewall all profiles block inbound,CIS 9.x,exposure,Applied,
+H-13,Windows,Deploy LAPS for local admin passwords,CIS 1.x/control,T1078.003 local accounts,Applied,unique rotating local admin pw
+H-14,Linux,Enforce password rules + expiry (login.defs/pam),CIS 5.4.x,weak creds,Applied,pwquality + 90-day
+H-15,Linux,Verify no accounts have empty passwords,CIS 5.5.2,anon access,Applied,
+H-16,Linux,Set GRUB bootloader password,CIS 1.4.x,single-user bypass,Applied,
+H-17,Linux,Configure SSH securely (no root login / Protocol 2 / MAC+cipher),CIS 5.2.x,remote access,Applied,PermitRootLogin no
+H-18,Linux,Disable telnet / rsh / legacy services,CIS 2.x,cleartext proto,Applied,
+H-19,Linux,Enable auditd + central logging,CIS 4.1.x,no visibility,Applied,ships to SIEM
+H-20,Linux,Enable firewall (nftables/ufw) default-deny,CIS 3.5.x,exposure,Applied,
+H-21,Network-Router,Change default admin password + enable secret,user checklist,default creds,Applied,
+H-22,Network-Router,Encrypt passwords (service password-encryption),user checklist,cleartext config,Applied,
+H-23,Network-Router,Use external AAA (TACACS+/RADIUS),user checklist,shared local creds,Applied,
+H-24,Network-Router,SNMPv3 with auth+encryption (disable v1/v2c),user checklist,T1602 config theft,Applied,
+H-25,Network-Router,Enable NTP + logging to external syslog,user checklist,no time sync/visibility,Applied,
+H-26,Network-Switch,HTTPS GUI + SSH CLI only; non-standard mgmt ports,user checklist,cleartext mgmt,Applied,
+H-27,Network-Switch,Disable telnet/HTTP/unused services,user checklist,cleartext proto,Applied,
+H-28,Network-Device,Printers/cameras/UPS: change default creds; not Internet-exposed; SNMPv3 or off,user checklist,default creds/exposure,Applied,IoT/infra often forgotten

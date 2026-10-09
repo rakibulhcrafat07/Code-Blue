@@ -1,0 +1,4 @@
+id,control,system,reason_for_exception,compensating_control,approved_by,review_date
+E-01,SMBv1 disable (H-05),LEGACY-FILESRV,One legacy scanner appliance requires SMBv1 to deposit scans,Isolated VLAN + host firewall allow only the scanner IP; replacement planned,Infra lead + CISO,2026-07-01
+E-02,SSH non-root only (H-17),BUILD-02,CI pipeline uses root over SSH for image builds,Key-only auth + source-IP allowlist + session logging to SIEM,Platform lead,2026-06-15
+E-03,Account lockout (H-04),KIOSK-WS,Shared kiosk account lockout caused repeated DoS to front desk,Auto-logon restricted account + physical supervision + no sensitive access,IT ops,2026-06-01
