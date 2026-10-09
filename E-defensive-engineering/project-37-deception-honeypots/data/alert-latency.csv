@@ -1,0 +1,8 @@
+decoy_id,decoy,trigger_action,detection_to_alert_sec,channel,false_positive_rate
+D-01,Decoy AD account,auth attempt from attacker VM,3.4,Wazuh 4625/4769,0 (no legit use)
+D-02,Decoy file share,opened share + a file,4.1,Wazuh 4663 SACL,0
+D-03,Canary document,opened Q4_Exec_Compensation.docx,2.2,Canary webhook,0
+D-04,Canary AWS key,used fake key with aws cli,5.9,Canary (key-use beacon),0
+D-05,Canary URL,visited the decoy link,1.8,Canary webhook,0
+D-06,Decoy creds file,opened passwords.xlsx,2.6,Canarytoken,0
+D-07,T-Pot sensor,SSH brute force (cowrie),2.0,T-Pot -> SIEM,0

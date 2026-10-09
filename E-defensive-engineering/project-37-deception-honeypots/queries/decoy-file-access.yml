@@ -1,0 +1,20 @@
+title: Decoy File / Share Accessed (SACL audit)
+id: cb37-decoy-file
+status: experimental
+description: >
+  Access to the decoy file share or canary document, caught by a SACL audit (4663).
+  The object is auditing-only bait - no legitimate process should ever open it.
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4663
+    ObjectName|contains:
+      - '\Payroll_2026_FINAL\'
+      - 'Q4_Exec_Compensation.docx'
+      - 'passwords.xlsx'
+  condition: selection
+fields: [SubjectUserName, ObjectName, AccessMask, ProcessName]
+level: high
+tags: [attack.discovery, attack.t1083, attack.t1552.001]

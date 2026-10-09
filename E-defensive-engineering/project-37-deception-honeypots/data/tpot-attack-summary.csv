@@ -1,0 +1,6 @@
+sensor,service,observed_activity,top_source_behaviour,notes
+cowrie,SSH/Telnet,brute force + post-login commands,"wget malware; cat /proc/cpuinfo; miner install attempts",classic botnet/cryptominer TTPs
+dionaea,SMB/HTTP/FTP,malware capture,"EternalBlue-style SMB probes, payload drops",samples hashed for analysis
+heralding,auth protocols,credential harvesting,"admin/admin, root/root spray",default-cred attempts
+honeytrap,misc TCP,opportunistic scans,"port sweeps, banner grabs",recon noise baseline
+ddospot,UDP amplification,amplification probes,NTP/DNS/SSDP reflection attempts,DDoS-infra recon

@@ -1,0 +1,18 @@
+title: Decoy (Honey) Account Touched - Any Interaction Is Malicious
+id: cb37-decoy-account
+status: experimental
+description: >
+  ANY authentication attempt, Kerberos ticket request, or group enumeration against
+  the decoy privileged account. Legitimate users never touch it, so every hit is an
+  alert with ~0 false positives.
+logsource:
+  product: windows
+  service: security
+detection:
+  selection_auth:
+    EventID: [4625, 4624, 4768, 4769, 4771]
+    TargetUserName: 'svc_backup_admin'    # the decoy account
+  condition: selection_auth
+fields: [EventID, TargetUserName, IpAddress, WorkstationName]
+level: critical
+tags: [attack.credential_access, attack.t1087, attack.t1558.003]

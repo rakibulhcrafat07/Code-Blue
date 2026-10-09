@@ -1,0 +1,22 @@
+title: Canarytoken Triggered (webhook -> SIEM)
+id: cb37-canarytoken
+status: experimental
+description: >
+  A Canarytoken (document, AWS key, URL, or QR) fired its callback. Canarytokens
+  only alert when the bait is actually used, so this is a high-fidelity signal.
+  Ingest the Canary webhook JSON into the SIEM and alert on any event.
+logsource:
+  product: canarytokens
+detection:
+  selection:
+    event_type:
+      - 'doc_opened'
+      - 'aws_key_used'
+      - 'url_visited'
+      - 'qr_scanned'
+  condition: selection
+fields: [token_type, memo, src_ip, geo, user_agent]
+falsepositives:
+  - An admin accidentally opening the bait (document the placement so this is rare)
+level: high
+tags: [attack.credential_access, attack.t1552, attack.t1083]

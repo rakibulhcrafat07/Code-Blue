@@ -1,0 +1,9 @@
+decoy_id,type,name_or_token,placement,triggers_on,siem_routing,severity
+D-01,Decoy AD account,svc_backup_admin (looks privileged; no real rights),Domain - appears in Domain Admins-adjacent group,any auth attempt (4625/4624) or Kerberoast (4769),Wazuh rule 100701,Critical
+D-02,Decoy file share,\\FILESRV\Payroll_2026_FINAL,Member server - indexed, realistic name,any file open (4663 audit SACL),Wazuh rule 100702,High
+D-03,Canary document,Q4_Exec_Compensation.docx,Inside D-02 share + on 2 workstations' Documents,document opened (Canarytoken callback),Canary webhook -> SIEM,High
+D-04,Canary AWS key,AKIA-decoy in ~/.aws/credentials (fake),Developer workstations + a wiki page,key used anywhere (CloudTrail/Canary),Canary webhook -> SIEM,Critical
+D-05,Canary URL/QR,https://canary.decoy/internal-vpn-setup,Intranet page + a pinned chat message,URL visited,Canary webhook -> SIEM,Medium
+D-06,Decoy credentials in file,passwords.xlsx with fake creds,Shared drive + a user's desktop,file opened + creds used,Canarytoken + auth-fail correlation,High
+D-07,T-Pot honeypot stack,cowrie/dionaea/heralding/... sensors,Isolated DMZ segment (own VLAN),any connection to the sensor,T-Pot -> Elastic -> Wazuh,High
+D-08,Decoy SNMP/network service,fake router mgmt on a sensor,T-Pot segment,SNMP/telnet probe,T-Pot sensor,Medium
